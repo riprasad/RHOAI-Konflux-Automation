@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 from unittest.mock import MagicMock
 
@@ -10,7 +11,7 @@ OTHER = 'sha256:' + 'b' * 64
 
 
 def _parsed(digest, repo='odh-vllm-cpu-rhel9', org='rhoai'):
-    return {'org': org, 'repo': repo, 'component_name': repo.replace('-rhel9', ''), 'digest': digest}
+    return {'org': org, 'repo': repo, 'component_name': re.sub(r'-rhel\d+$', '', repo), 'digest': digest}
 
 
 class TestMalformedDigest:

@@ -109,10 +109,7 @@ def parse_image_value(image_value: str) -> Dict[str, str]:
     repo = '/'.join(parts[2:])
 
     # Derive component name by stripping RHEL suffix
-    if repo.endswith(('-rhel8', '-rhel9')):
-        component_name = repo.replace('-rhel8', '').replace('-rhel9', '')
-    else:
-        component_name = repo
+    component_name = re.sub(r'-rhel\d+$', '', repo)
 
     return {
         'registry': registry,
